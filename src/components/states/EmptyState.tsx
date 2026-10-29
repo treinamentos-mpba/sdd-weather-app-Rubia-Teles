@@ -1,17 +1,20 @@
+import { MapPin } from 'lucide-react';
+
 interface EmptyStateProps {
   title: string;
-  hint?: string;
+  hint: string;
+  announce?: boolean;
 }
 
-/** Estado vazio (nenhuma busca feita ou nenhum resultado). */
-export default function EmptyState({ title, hint }: EmptyStateProps) {
+export default function EmptyState({ title, hint, announce = true }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center gap-2 py-16 text-center">
-      <span aria-hidden="true" className="text-4xl">
-        🌍
-      </span>
-      <p className="text-white/80">{title}</p>
-      {hint && <p className="text-sm text-white/50">{hint}</p>}
+    <div
+      role={announce ? 'status' : undefined}
+      className="flex min-h-80 flex-col items-center justify-center py-12 text-center"
+    >
+      <MapPin aria-hidden="true" className="mb-5 size-10 text-emerald-300" />
+      <h2 className="text-xl font-semibold text-white">{title}</h2>
+      <p className="mt-3 max-w-md text-sm leading-6 text-slate-300">{hint}</p>
     </div>
   );
 }

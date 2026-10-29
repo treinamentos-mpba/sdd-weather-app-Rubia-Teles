@@ -1,12 +1,17 @@
-/** Indicador de carregamento acessível. */
-export default function LoadingState() {
+import { LoaderCircle } from 'lucide-react';
+
+export default function LoadingState({ announce = true }: { announce?: boolean }) {
   return (
-    <div role="status" aria-live="polite" className="flex flex-col items-center gap-3 py-16">
-      <span
+    <div
+      role={announce ? 'status' : undefined}
+      className="flex min-h-80 flex-col items-center justify-center gap-5 py-12 text-center"
+    >
+      <LoaderCircle
         aria-hidden="true"
-        className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-accent-500"
+        className="size-10 animate-spin text-accent-400 motion-reduce:animate-none"
       />
-      <p className="text-white/60">Carregando o clima…</p>
+      <p className="text-lg font-medium text-white">Carregando previsão…</p>
+      <p className="text-sm text-slate-400">Consultando Open-Meteo</p>
     </div>
   );
 }

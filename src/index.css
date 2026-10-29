@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  body {
+    @apply m-0 bg-night-900 font-sans text-slate-100 antialiased;
+    background-image:
+      linear-gradient(135deg, rgb(16 185 129 / 0.045), transparent 55%),
+      linear-gradient(rgb(255 255 255 / 0.015) 1px, transparent 1px);
+    background-size:
+      auto,
+      100% 80px;
+    letter-spacing: 0;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-emerald-300;
+  }
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+  button,
+  select {
+    touch-action: manipulation;
+  }
+  ::selection {
+    @apply bg-emerald-300 text-night-900;
+  }
+}
+
+.skip-link {
+  @apply fixed left-4 top-4 z-50 rounded-md bg-white px-4 py-3 text-night-900;
+  clip-path: inset(50%);
+}
+
+.skip-link:focus {
+  clip-path: none;
+}
+
+.weather-reveal {
+  animation: reveal 350ms ease-out both;
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .weather-reveal {
+    animation: none;
+  }
+}

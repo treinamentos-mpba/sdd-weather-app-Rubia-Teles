@@ -1,23 +1,34 @@
+import { RefreshCw, WifiOff } from 'lucide-react';
+
 interface ErrorStateProps {
   message: string;
   onRetry: () => void;
+  disabled?: boolean;
 }
 
-/** Estado de erro com ação de "tentar novamente". */
-export default function ErrorState({ message, onRetry }: ErrorStateProps) {
+export default function ErrorState({ message, onRetry, disabled = false }: ErrorStateProps) {
   return (
-    <div role="alert" className="flex flex-col items-center gap-4 py-16 text-center">
-      <span aria-hidden="true" className="text-4xl">
-        ⚠️
-      </span>
-      <p className="text-white/80">{message}</p>
+    <section
+      aria-label="Falha na consulta"
+      className="flex min-h-80 flex-col items-center justify-center py-12 text-center"
+    >
+      <WifiOff aria-hidden="true" className="mb-5 size-10 text-rose-300" />
+      <div role="alert">
+        <h2 className="text-xl font-semibold text-white">Previsão indisponível</h2>
+        <p className="mt-3 max-w-md text-sm leading-6 text-slate-300">{message}</p>
+        {disabled && (
+          <p className="mt-2 text-sm text-slate-300">Aguarde a liberação de novas consultas.</p>
+        )}
+      </div>
       <button
         type="button"
         onClick={onRetry}
-        className="rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-600"
+        disabled={disabled}
+        className="mt-6 flex min-h-11 items-center gap-2 rounded-md bg-accent-400 px-5 text-sm font-semibold text-night-900 hover:bg-indigo-200 disabled:cursor-not-allowed disabled:opacity-50"
       >
+        <RefreshCw aria-hidden="true" className="size-4" />
         Tentar novamente
       </button>
-    </div>
+    </section>
   );
 }
